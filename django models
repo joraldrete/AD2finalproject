@@ -1,0 +1,21 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class Habit(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    frequency = models.CharField(max_length=100)  # e.g., "Daily", "Weekly"
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Mood(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mood = models.CharField(max_length=100)  # e.g., "Happy", "Sad", "Anxious"
+    date = models.DateField(auto_now_add=True)
+    notes = models.TextField(blank=True)
+
+class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    deadline = models.DateField()
+    completed = models.BooleanField(default=False)
